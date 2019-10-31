@@ -2,4 +2,4 @@ app_x-cube-ai.c:79:5:aiInit	64	static
 app_x-cube-ai.c:110:5:aiRun	24	static
 app_x-cube-ai.c:140:6:MX_X_CUBE_AI_Init	8	static
 app_x-cube-ai.c:152:6:MX_X_CUBE_AI_Process	104	static
-app_x-cube-ai.c:225:13:bubblesort	40	static
+app_x-cube-ai.c:226:13:bubblesort	40	static

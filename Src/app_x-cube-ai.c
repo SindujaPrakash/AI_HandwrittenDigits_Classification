@@ -209,6 +209,7 @@ void MX_X_CUBE_AI_Process(void)
                	/* Print the classification result */
                	char* ptr=g_classes[ranking[0]];
                	BSP_LCD_DisplayStringAt(230,120, ptr, 0x03);
+               	HAL_Delay(3000);
                }
 
         /* Post-Process - process the output buffer */

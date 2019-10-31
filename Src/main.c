@@ -157,6 +157,7 @@ int main(void)
 	  	    	ImageResize((uint8_t*)original_image, 168, 168, 2, 0, 0, 0, 0,(uint8_t*)resized_image, 28, 28);
 	  	    	convert_8Bit_Grayscale((uint16_t*)resized_image);
 	  	    	MX_X_CUBE_AI_Process();
+	  	    	drawMenu();
 	  	    }
   }
   /* USER CODE END 3 */
