@@ -1,6 +1,6 @@
 Src/app_x-cube-ai.o: ../Src/app_x-cube-ai.c ../Inc/app_x-cube-ai.h \
- ../Middlewares/ST/AI/Inc/ai_platform.h ../Inc/handwritten_nn.h \
- ../Inc/handwritten_nn_data.h ../Inc/main.h \
+ ../Middlewares/ST/AI/Inc/ai_platform.h ../Inc/digitclassification.h \
+ ../Inc/digitclassification_data.h ../Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -31,15 +31,16 @@ Src/app_x-cube-ai.o: ../Src/app_x-cube-ai.c ../Inc/app_x-cube-ai.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Inc/constants_ai.h ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h
+ ../Inc/constants_ai.h ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h \
+ ../Inc/input.h ../Inc/main.h
 
 ../Inc/app_x-cube-ai.h:
 
 ../Middlewares/ST/AI/Inc/ai_platform.h:
 
-../Inc/handwritten_nn.h:
+../Inc/digitclassification.h:
 
-../Inc/handwritten_nn_data.h:
+../Inc/digitclassification_data.h:
 
 ../Inc/main.h:
 
@@ -106,3 +107,7 @@ Src/app_x-cube-ai.o: ../Src/app_x-cube-ai.c ../Inc/app_x-cube-ai.h \
 ../Inc/constants_ai.h:
 
 ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h:
+
+../Inc/input.h:
+
+../Inc/main.h:

@@ -30,7 +30,7 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Inc/app_x-cube-ai.h ../Middlewares/ST/AI/Inc/ai_platform.h \
- ../Inc/handwritten_nn.h ../Inc/handwritten_nn_data.h \
+ ../Inc/digitclassification.h ../Inc/digitclassification_data.h \
  ../Inc/stm32_lcd_bsp.h ../Inc/ili9325.h ../Inc/lcd.h \
  ../Inc/../Fonts/fonts.h ../Inc/touch_panel.h
 
@@ -100,9 +100,9 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 
 ../Middlewares/ST/AI/Inc/ai_platform.h:
 
-../Inc/handwritten_nn.h:
+../Inc/digitclassification.h:
 
-../Inc/handwritten_nn_data.h:
+../Inc/digitclassification_data.h:
 
 ../Inc/stm32_lcd_bsp.h:
 

@@ -1,9 +1,0 @@
-handwritten_nn.c:383:9:handwritten_nn_configure_activations	24	static
-handwritten_nn.c:415:9:handwritten_nn_configure_weights	24	static
-handwritten_nn.c:453:9:ai_handwritten_nn_get_info	128	static
-handwritten_nn.c:500:10:ai_handwritten_nn_get_error	16	static
-handwritten_nn.c:506:10:ai_handwritten_nn_create	24	static
-handwritten_nn.c:516:11:ai_handwritten_nn_destroy	16	static
-handwritten_nn.c:522:9:ai_handwritten_nn_init	24	static
-handwritten_nn.c:537:8:ai_handwritten_nn_run	24	static
-handwritten_nn.c:544:8:ai_handwritten_nn_forward	16	static

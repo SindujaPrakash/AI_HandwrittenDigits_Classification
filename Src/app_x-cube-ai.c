@@ -57,15 +57,22 @@
 #include "ai_datatypes_defines.h"
 
 /* USER CODE BEGIN includes */
+#include "input.h"
 /* USER CODE END includes */
 /* USER CODE BEGIN initandrun */
 #include <stdlib.h>
 
 /* Global handle to reference the instance of the NN */
-static ai_handle handwritten_nn = AI_HANDLE_NULL;
-static ai_buffer ai_input[AI_HANDWRITTEN_NN_IN_NUM] = AI_HANDWRITTEN_NN_IN ;
-static ai_buffer ai_output[AI_HANDWRITTEN_NN_OUT_NUM] = AI_HANDWRITTEN_NN_OUT ;
+static ai_handle digitclassification = AI_HANDLE_NULL;
+static ai_buffer ai_input[AI_DIGITCLASSIFICATION_IN_NUM] = AI_DIGITCLASSIFICATION_IN ;
+static ai_buffer ai_output[AI_DIGITCLASSIFICATION_OUT_NUM] = AI_DIGITCLASSIFICATION_OUT ;
 
+static void bubblesort(float *, int *, int);
+
+const char *g_classes[]  = {
+   "Zero", "One", "Two", "Three",
+   "Four", "Five", "Six", "Seven",
+   "Eight", "Nine"};
 /*
  * Init function to create and initialize a NN.
  */
@@ -76,21 +83,21 @@ int aiInit(const ai_u8* activations)
     /* 1 - Specific AI data structure to provide the references of the
      * activation/working memory chunk and the weights/bias parameters */
     const ai_network_params params = {
-            AI_HANDWRITTEN_NN_DATA_WEIGHTS(ai_handwritten_nn_data_weights_get()),
-            AI_HANDWRITTEN_NN_DATA_ACTIVATIONS(activations)
+            AI_DIGITCLASSIFICATION_DATA_WEIGHTS(ai_digitclassification_data_weights_get()),
+            AI_DIGITCLASSIFICATION_DATA_ACTIVATIONS(activations)
     };
 
     /* 2 - Create an instance of the NN */
-    err = ai_handwritten_nn_create(&handwritten_nn, AI_HANDWRITTEN_NN_DATA_CONFIG);
+    err = ai_digitclassification_create(&digitclassification, AI_DIGITCLASSIFICATION_DATA_CONFIG);
     if (err.type != AI_ERROR_NONE) {
 	    return -1;
     }
 
     /* 3 - Initialize the NN - Ready to be used */
-    if (!ai_handwritten_nn_init(handwritten_nn, &params)) {
-        err = ai_handwritten_nn_get_error(handwritten_nn);
-        ai_handwritten_nn_destroy(handwritten_nn);
-        handwritten_nn = AI_HANDLE_NULL;
+    if (!ai_digitclassification_init(digitclassification, &params)) {
+        err = ai_digitclassification_get_error(digitclassification);
+        ai_digitclassification_destroy(digitclassification);
+        digitclassification = AI_HANDLE_NULL;
 	    return -2;
     }
 
@@ -106,7 +113,7 @@ int aiRun(const void *in_data, void *out_data)
     ai_error err;
 
     /* Parameters checking */
-    if (!in_data || !out_data || !handwritten_nn)
+    if (!in_data || !out_data || !digitclassification)
         return -1;
 
     /* Initialize input/output buffer handlers */
@@ -116,9 +123,9 @@ int aiRun(const void *in_data, void *out_data)
     ai_output[0].data = AI_HANDLE_PTR(out_data);
 
     /* 2 - Perform the inference */
-    nbatch = ai_handwritten_nn_run(handwritten_nn, &ai_input[0], &ai_output[0]);
+    nbatch = ai_digitclassification_run(digitclassification, &ai_input[0], &ai_output[0]);
     if (nbatch != 1) {
-        err = ai_handwritten_nn_get_error(handwritten_nn);
+        err = ai_digitclassification_get_error(digitclassification);
         // ...
         return err.code;
     }
@@ -136,7 +143,7 @@ void MX_X_CUBE_AI_Init(void)
     /* Activation/working buffer is allocated as a static memory chunk
      * (bss section) */
     AI_ALIGNED(4)
-    static ai_u8 activations[AI_HANDWRITTEN_NN_DATA_ACTIVATIONS_SIZE];
+    static ai_u8 activations[AI_DIGITCLASSIFICATION_DATA_ACTIVATIONS_SIZE];
 
     aiInit(activations);
     /* USER CODE END 0 */
@@ -145,16 +152,19 @@ void MX_X_CUBE_AI_Init(void)
 void MX_X_CUBE_AI_Process(void)
 {
     /* USER CODE BEGIN 1 */
-	int nb_run = 20;
+	int nb_run = 2;
     int res;
 
+    int ranking[OUTPUT_CLASS_NUMBER];
+
+    for(int i=0; i<OUTPUT_CLASS_NUMBER;i++) ranking[i]=i;
     /* Example of definition of the buffers to store the tensor input/output */
     /*  type is dependent of the expected format                             */
     AI_ALIGNED(4)
-    static ai_i8 in_data[AI_HANDWRITTEN_NN_IN_1_SIZE_BYTES];
+    static ai_i8 in_data[AI_DIGITCLASSIFICATION_IN_1_SIZE_BYTES];
 
     AI_ALIGNED(4)
-    static ai_i8 out_data[AI_HANDWRITTEN_NN_OUT_1_SIZE_BYTES];
+    static ai_i8 out_data[AI_DIGITCLASSIFICATION_OUT_1_SIZE_BYTES];
 
     /* Retrieve format/type of the first input tensor - index 0 */
     const ai_buffer_format fmt_ = AI_BUFFER_FORMAT(&ai_input[0]);
@@ -174,10 +184,10 @@ void MX_X_CUBE_AI_Process(void)
         /* Data generation and Pre-Process          */
         /* ---------------------------------------- */
         /* - fill the input buffer with random data */
-        for (ai_size i=0;  i < AI_HANDWRITTEN_NN_IN_1_SIZE; i++ ) {
+        for (ai_size i=0;  i < AI_DIGITCLASSIFICATION_IN_1_SIZE; i++ ) {
 
             /* Generate random data in the range [-1, 1] */
-            ai_float val = 2.0f * (ai_float)rand() / (ai_float)RAND_MAX - 1.0f;
+            ai_float val = grayscale_image[i];
 
             /* Convert the data if necessary */
             if (type_ == AI_BUFFER_FMT_TYPE_FLOAT) {
@@ -193,15 +203,45 @@ void MX_X_CUBE_AI_Process(void)
 
         /* Perform the inference */
         res = aiRun(in_data, out_data);
-        if (res) {
-            // ...
-            return;
-        }
+        if(res==0)
+               {
+               	bubblesort(out_data,ranking,OUTPUT_CLASS_NUMBER);
+               	/* Print the classification result */
+               	char* ptr=g_classes[ranking[0]];
+               	BSP_LCD_DisplayStringAt(230,120, ptr, 0x03);
+               }
 
         /* Post-Process - process the output buffer */
         // ...
     }
     /* USER CODE END 1 */
+}
+
+/**
+  * @brief  Bubble sorting algorithm
+  * @param  None
+  * @retval None
+  */
+static void bubblesort(float *prob,int *classes, int size)
+{
+  float p;
+  int c;
+
+  for(int i=0; i<size; i++)
+  {
+    for(int ii=0; ii<size-i-1; ii++)
+    {
+      if(prob[ii]<prob[ii+1])
+      {
+        p=prob[ii];
+        prob[ii]=prob[ii+1];
+        prob[ii+1]=p;
+        c = classes[ii];
+        classes[ii]=classes[ii+1];
+        classes[ii+1]=c;
+      }
+    }
+  }
 }
 #ifdef __cplusplus
 }

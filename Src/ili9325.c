@@ -256,7 +256,7 @@ void ili9325_Init(void)
   /* set GRAM write direction and BGR = 1 */
   /* I/D=00 (Horizontal : increment, Vertical : decrement) */
   /* AM=1 (address is updated in vertical writing direction) */
-  ili9325_WriteReg(LCD_REG_3, 0x1010);
+  ili9325_WriteReg(LCD_REG_3, 0x1028);
   
   /* 262K color and display ON */ 
   ili9325_WriteReg(LCD_REG_7, 0x0173);    

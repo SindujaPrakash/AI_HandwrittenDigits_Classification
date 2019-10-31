@@ -1,0 +1,9 @@
+digitclassification.c:299:9:digitclassification_configure_activations	24	static
+digitclassification.c:327:9:digitclassification_configure_weights	24	static
+digitclassification.c:359:9:ai_digitclassification_get_info	128	static
+digitclassification.c:406:10:ai_digitclassification_get_error	16	static
+digitclassification.c:412:10:ai_digitclassification_create	24	static
+digitclassification.c:422:11:ai_digitclassification_destroy	16	static
+digitclassification.c:428:9:ai_digitclassification_init	24	static
+digitclassification.c:443:8:ai_digitclassification_run	24	static
+digitclassification.c:450:8:ai_digitclassification_forward	16	static

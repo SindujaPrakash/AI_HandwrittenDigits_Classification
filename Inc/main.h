@@ -38,6 +38,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 extern SPI_HandleTypeDef hspi3;
+extern uint8_t grayscale_image[28*28];
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -71,7 +72,8 @@ void Error_Handler(void);
 #define A24_Pin GPIO_PIN_13
 #define A24_GPIO_Port GPIOG
 /* USER CODE BEGIN Private defines */
-
+#define Push_button_Pin GPIO_PIN_0
+#define Push_button_GPIO_Port GPIOA
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

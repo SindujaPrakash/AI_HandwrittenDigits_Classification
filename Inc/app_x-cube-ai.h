@@ -54,8 +54,8 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "ai_platform.h"
-#include "handwritten_nn.h"
-#include "handwritten_nn_data.h"
+#include "digitclassification.h"
+#include "digitclassification_data.h"
 
 void MX_X_CUBE_AI_Init(void);
 void MX_X_CUBE_AI_Process(void);
@@ -76,16 +76,17 @@ int aiRun(const void *in_data, void *out_data);
   (type_) ( ((v_)<0) ? ((v_)-0.5f) : ((v_)+0.5f) )
   
 /* USER CODE BEGIN includes */
+#define OUTPUT_CLASS_NUMBER 10
 /* USER CODE END includes */
-#define AI_MMETWORK_IN                AI_HANDWRITTEN_NN_IN
-#define AI_MNETWORK_OUT               AI_HANDWRITTEN_NN_OUT
+#define AI_MMETWORK_IN                AI_DIGITCLASSIFICATION_IN
+#define AI_MNETWORK_OUT               AI_DIGITCLASSIFICATION_OUT
 
 #define AI_MNETWORK_NUMBER  (1)
-#define AI_MNETWORK_DATA_ACTIVATIONS_SIZE AI_HANDWRITTEN_NN_DATA_ACTIVATIONS_SIZE
-#define AI_MNETWORK_IN_1_SIZE AI_HANDWRITTEN_NN_IN_1_SIZE
-#define AI_MNETWORK_IN_1_SIZE_BYTES AI_HANDWRITTEN_NN_IN_1_SIZE_BYTES
-#define AI_MNETWORK_OUT_1_SIZE AI_HANDWRITTEN_NN_OUT_1_SIZE
-#define AI_MNETWORK_OUT_1_SIZE_BYTES AI_HANDWRITTEN_NN_OUT_1_SIZE_BYTES
+#define AI_MNETWORK_DATA_ACTIVATIONS_SIZE AI_DIGITCLASSIFICATION_DATA_ACTIVATIONS_SIZE
+#define AI_MNETWORK_IN_1_SIZE AI_DIGITCLASSIFICATION_IN_1_SIZE
+#define AI_MNETWORK_IN_1_SIZE_BYTES AI_DIGITCLASSIFICATION_IN_1_SIZE_BYTES
+#define AI_MNETWORK_OUT_1_SIZE AI_DIGITCLASSIFICATION_OUT_1_SIZE
+#define AI_MNETWORK_OUT_1_SIZE_BYTES AI_DIGITCLASSIFICATION_OUT_1_SIZE_BYTES
 #ifdef __cplusplus
 }
 #endif

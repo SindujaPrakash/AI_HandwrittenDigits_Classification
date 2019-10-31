@@ -211,6 +211,29 @@ sFONT *BSP_LCD_GetFont(void)
 }
 
 /**
+ * @brief Clear a range of pixel values
+ * @param X,Y range
+ * @retval None
+ */
+
+void clearPixels(uint16_t minX, uint16_t maxX, uint16_t minY, uint16_t maxY)
+{
+	uint32_t colorbackup = DrawProp.TextColor;
+	DrawProp.TextColor = DrawProp.BackColor;;
+
+	for(uint16_t i=minY; i<maxY; i++)
+		{
+			for(uint16_t j=minX;j<maxX;j++)
+			{
+				ili9325_WritePixel(j, i, DrawProp.TextColor);
+			}
+		}
+
+	DrawProp.TextColor = colorbackup;
+	BSP_LCD_SetTextColor(DrawProp.TextColor);
+}
+
+/**
   * @brief  Clears the hole LCD.
   * @param  Color: Color of the background
   * @retval None
