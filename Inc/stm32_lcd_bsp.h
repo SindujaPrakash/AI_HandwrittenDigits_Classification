@@ -152,6 +152,7 @@ void     BSP_LCD_FillEllipse(int Xpos, int Ypos, int XRadius, int YRadius);
 void     BSP_LCD_DisplayOff(void);
 void     BSP_LCD_DisplayOn(void);
 void     clearPixels(uint16_t minX, uint16_t maxX, uint16_t minY, uint16_t maxY);
+void 	 resetDrawPop();
 /**
   * @}
   */

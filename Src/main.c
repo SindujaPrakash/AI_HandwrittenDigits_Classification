@@ -157,7 +157,6 @@ int main(void)
 	  	    	ImageResize((uint8_t*)original_image, 168, 168, 2, 0, 0, 0, 0,(uint8_t*)resized_image, 28, 28);
 	  	    	convert_8Bit_Grayscale((uint16_t*)resized_image);
 	  	    	MX_X_CUBE_AI_Process();
-	  	    	drawMenu();
 	  	    }
   }
   /* USER CODE END 3 */
@@ -560,6 +559,7 @@ void drawMenu()
 	  BSP_LCD_DrawHLine(50,200,170);
 	  BSP_LCD_DrawVLine(50, 30, 170);
 	  BSP_LCD_DrawVLine(220, 30, 170);
+	  BSP_LCD_SetFont(&Font24);
 }
 
 // Load LCD Pixel values to Memory
@@ -573,6 +573,9 @@ void loadImageIntoMemory()
 			ptToImage++;
 		}
 	}
+	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+	BSP_LCD_SetFont(&Font24);
+	ili9325_SetCursor(0, 0);
 }
 
 

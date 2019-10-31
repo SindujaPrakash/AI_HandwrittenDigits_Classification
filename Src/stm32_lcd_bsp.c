@@ -136,6 +136,18 @@ uint8_t BSP_LCD_Init(void)
 }
 
 /**
+ * @brief Reset The draw pop structure values
+ */
+void resetDrawPop()
+{
+	DrawProp.BackColor = 0xFFFF;
+	DrawProp.pFont     = &Font24;
+	DrawProp.TextColor = 0x0000;
+	ili9325_SetCursor(0,0);
+}
+
+
+/**
   * @brief  Gets the LCD X size.
   * @retval Used LCD X size
   */

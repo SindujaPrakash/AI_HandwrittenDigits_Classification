@@ -226,6 +226,7 @@ void     ili9325_Clear(uint16_t Color);
 uint16_t ili9325_GetLcdPixelWidth(void);
 uint16_t ili9325_GetLcdPixelHeight(void);
 
+
 /* LCD driver structure */
 extern LCD_DrvTypeDef   ili9325_drv;
 
